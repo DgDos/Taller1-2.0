@@ -111,10 +111,6 @@ public class Escritura {
          }
          // create a new RandomAccessFile with filename test
          RandomAccessFile raf = new RandomAccessFile("tablas.txt", "rw");
-         
-         File file = new File("tablas.txt");
-            System.out.println(file.getAbsolutePath());
-            
          if(raf.length()==0){
              raf.writeInt(1);
              raf.writeInt(208);
@@ -129,10 +125,8 @@ public class Escritura {
              int cantidadDatos=raf.readInt();
              int posDatos=raf.readInt();
              raf.seek(posDatos+44*(cantidadDatos-1));
-             System.out.println(raf.getFilePointer());
              int id=raf.readInt()+1;
              raf.seek(posDatos+44*cantidadDatos);
-             System.out.println(raf.getFilePointer());
              raf.writeInt(id);
              int pos=(int) raf.getFilePointer();
              destruirP(pos, nombre, "tablas.txt");
@@ -155,11 +149,9 @@ public class Escritura {
              return ;
          }
          // create a new RandomAccessFile with filename test
-         RandomAccessFile raf = new RandomAccessFile("colmunas.txt", "rw");
-         
-         File file = new File("columnas.txt");
-            System.out.println(file.getAbsolutePath());
-            
+         RandomAccessFile raf = new RandomAccessFile("columnas.txt", "rw");
+         //File file = new File("columnas.txt");
+            //System.out.println(file.getAbsolutePath());
          if(raf.length()==0){
              raf.writeInt(1);
              raf.writeInt(208);
@@ -175,10 +167,8 @@ public class Escritura {
              int cantidadDatos=raf.readInt();
              int posDatos=raf.readInt();
              raf.seek(posDatos+84*(cantidadDatos-1));
-             System.out.println(raf.getFilePointer());
              int id=raf.readInt()+1;
              raf.seek(posDatos+84*cantidadDatos);
-             System.out.println(raf.getFilePointer());
              raf.writeInt(id);
              int pos=(int) raf.getFilePointer();
              destruirP(pos, atr, "columnas.txt");

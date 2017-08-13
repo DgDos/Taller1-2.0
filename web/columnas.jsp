@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Columnas</title>
     </head>
         <h1> Creador de Columnas </h1>
         
@@ -19,5 +19,10 @@
             Nombre de atributo: <input type="text" name="atributo">
             <br><br>
             Tipo de dato: <input type="text" name="tipoAtributo">
+        <input type="submit" name="Enviar"/>
+           
         </form>
+        
+         <a href="index.jsp"><button>Volver</button></a>
+        
 </html>

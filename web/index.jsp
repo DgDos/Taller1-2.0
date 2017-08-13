@@ -9,15 +9,15 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Taller1</title>
     </head>
     <body>
         
         <h1> Creador de Esquemas </h1>
-        
-        <a href="esquemas.jsp">Esquemas</a>
-        <a href="tablas.jsp">Tablas</a>
-        <a href="columnas.jsp">Columnas</a>
-
+        <ol>
+            <li><a href="esquemas.jsp">Esquemas</a></li>
+            <li><a href="tablas.jsp">Tablas</a></li>>
+            <li><a href="columnas.jsp">Columnas</a></li>>
+        </ol>
     </body>
 </html>
