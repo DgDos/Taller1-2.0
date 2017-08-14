@@ -16,8 +16,9 @@
         <h1> Creador de Esquemas </h1>
         <ol>
             <li><a href="esquemas.jsp">Esquemas</a></li>
-            <li><a href="tablas.jsp">Tablas</a></li>>
-            <li><a href="columnas.jsp">Columnas</a></li>>
+            <li><a href="tablas.jsp">Tablas</a></li>
+            <li><a href="columnas.jsp">Columnas</a></li>
         </ol>
+        
     </body>
 </html>

@@ -31,7 +31,6 @@ public class SchemaSer extends HttpServlet {
             throws ServletException, IOException {
         String s= request.getParameter("nombreEsquema");
         Escritura es=new Escritura();
-        System.out.println(s);
         es.escrituraSchema(s);
         response.sendRedirect("/WebApplication1/index.jsp");
     }

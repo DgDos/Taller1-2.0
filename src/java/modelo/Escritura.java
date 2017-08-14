@@ -185,5 +185,16 @@ public class Escritura {
         }
     }
     
-    
+    public void imprimirDatos(){
+        try{
+            RandomAccessFile esq = new RandomAccessFile("esquemas.txt", "rw");
+            int cantidadEsquemas=esq.readInt();
+            int posEsquemas=esq.readInt();
+            for(int i=0;i<cantidadEsquemas;i++){
+                
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 }
