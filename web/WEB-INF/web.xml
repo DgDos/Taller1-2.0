@@ -12,6 +12,10 @@
         <servlet-name>ColumnsSer</servlet-name>
         <servlet-class>controlador.ColumnsSer</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ConsultaSer</servlet-name>
+        <servlet-class>controlador.ConsultaSer</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SchemaSer</servlet-name>
         <url-pattern>/SchemaSer</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>ColumnsSer</servlet-name>
         <url-pattern>/ColumnsSer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConsultaSer</servlet-name>
+        <url-pattern>/ConsultaSer</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

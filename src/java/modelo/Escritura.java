@@ -188,6 +188,8 @@ public class Escritura {
     public void imprimirDatos(){
         try{
             RandomAccessFile esq = new RandomAccessFile("esquemas.txt", "rw");
+            RandomAccessFile tab = new RandomAccessFile("tablas.txt", "rw");
+            RandomAccessFile col = new RandomAccessFile("columnas.txt", "rw");
             int cantidadEsquemas=esq.readInt();
             int posEsquemas=esq.readInt();
             for(int i=0;i<cantidadEsquemas;i++){
