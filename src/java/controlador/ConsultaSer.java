@@ -7,6 +7,7 @@ package controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,9 +33,13 @@ public class ConsultaSer extends HttpServlet {
             throws ServletException, IOException {
         String esquema=request.getParameter("nombreEsquema");
         Escritura es=new Escritura();
+        System.out.println(esquema);
         int idE = es.recibirFK(esquema, "esquemas.txt");
-        es.imprimirDatos(idE);
-        response.sendRedirect("/Taller1/index.jsp");
+        String palabra="<h2>Esquema: "+esquema+"</h2> "+es.imprimirDatos(idE);
+        RequestDispatcher rd = getServletContext().getRequestDispatcher("/consulta.jsp");
+        request.setAttribute("palabra", palabra);
+        rd.forward(request, response);
+        //response.sendRedirect("/Taller1/index.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

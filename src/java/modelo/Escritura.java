@@ -39,20 +39,6 @@ public class Escritura {
      * @param nombre nombre del esquema.
      */
     
-   /* private void armarArbol(int posLlave, String archivo) {
-        try{
-            RandomAccessFile raf= new RandomAccessFile(archivo, "rw");
-            while(true){
-                if(raf.readInt()==0){
-                    raf.seek(raf.getFilePointer()-4);
-                    raf.writeInt(posLlave);
-                }
-            }
-        } catch (IOException ex) {
-         ex.printStackTrace();
-        }
-    }*/
-    
     public void escrituraSchema(String nombre){
         try {
             // Si el nombre del esquema es mayor a 20 no retorna nada.
@@ -129,7 +115,6 @@ public class Escritura {
                     } 
                 }
                 if(t=true && raf.readChar()=='.'){
-                    System.out.println("id; "+id);
                     return id;
                 }
                 posDatos+=44;
@@ -228,23 +213,75 @@ public class Escritura {
         }
     }
     
-    public void imprimirDatos(int idEsquema){
+    public String imprimirDatos(int idEsquema){
         try{
-            
+            String palabra="";
             RandomAccessFile tab = new RandomAccessFile("tablas.txt", "rw");
             RandomAccessFile col = new RandomAccessFile("columnas.txt", "rw");
-            
             tab.seek(0);
             int cantidadT = tab.readInt();
             tab.seek(8);
-            
             for(int i=0;i<cantidadT;i++){
-                
+                int idTabla=tab.readInt();
+                int posDatoTabla=tab.readInt();
+                int idComparadorT=tab.readInt();
+                int posBusquedaT=(int) tab.getFilePointer();
+                if(idComparadorT==idEsquema){
+                    palabra+="<h4>Tabla #"+idTabla+":";
+                    tab.seek(posDatoTabla);
+                    while(true){
+                        char a=tab.readChar();
+                        if(a!='.'){
+                            palabra+=a;
+                        }else{
+                            break;
+                        }
+                    }
+                    palabra+="</h4>";
+                    col.seek(0);
+                    int cantidadC=col.readInt();
+                    col.seek(8);
+                    for(int j=0;j<cantidadC;j++){
+                        int idColumna=col.readInt();
+                        int posColumna=col.readInt();
+                        int idComparadorC=col.readInt();
+                        int posBusqueda=(int) col.getFilePointer();
+                        if(idComparadorC==idTabla){
+                            palabra+="<h6>"+idColumna+" ";
+                            col.seek(posColumna);
+                            while(true){
+                                char a=col.readChar();
+                                if(a!='.'){
+                                    palabra+=a;
+                                }else{
+                                    break;
+                                }
+                            }
+                            palabra+=" ";
+                            col.seek(posColumna+40);
+                            while(true){
+                                char a=col.readChar();
+                                if(a!='.'){
+                                    palabra+=a;
+                                }else{
+                                    break;
+                                }
+                            }
+                            palabra+="</h6>";
+                        }
+                        col.seek(posBusqueda);
+                    }
+                }
+                tab.seek(posBusquedaT);
             }
+            System.out.println(palabra);
+            return palabra;
             
         } catch (IOException ex) {
             ex.printStackTrace();
+            return "";
         }
+        
     }
 
     
