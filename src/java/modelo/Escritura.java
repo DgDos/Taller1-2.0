@@ -274,7 +274,6 @@ public class Escritura {
                 }
                 tab.seek(posBusquedaT);
             }
-            System.out.println(palabra);
             return palabra;
             
         } catch (IOException ex) {
