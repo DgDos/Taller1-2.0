@@ -35,7 +35,7 @@ public class ColumnsSer extends HttpServlet {
         Escritura es=new Escritura();
         int a=es.recibirFK(nt,"tablas.txt");
         es.escrituraColumnas(a,atr, tipoAtr);
-        response.sendRedirect("/WebApplication1/index.jsp");
+        response.sendRedirect("/Taller1/index.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

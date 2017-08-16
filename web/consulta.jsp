@@ -14,6 +14,7 @@
     <h1> Consulta </h1>
         
         <form action="ConsultaSer" method="POST">
+             Nombre de esquema a consultar: <input type="text" name="nombreEsquema">
         <input type="submit" name="Consulta"/>
            
         </form>

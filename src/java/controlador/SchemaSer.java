@@ -32,7 +32,7 @@ public class SchemaSer extends HttpServlet {
         String s= request.getParameter("nombreEsquema");
         Escritura es=new Escritura();
         es.escrituraSchema(s);
-        response.sendRedirect("/WebApplication1/index.jsp");
+        response.sendRedirect("/Taller1/index.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -18,6 +18,7 @@
             <li><a href="esquemas.jsp">Esquemas</a></li>
             <li><a href="tablas.jsp">Tablas</a></li>
             <li><a href="columnas.jsp">Columnas</a></li>
+             <li><a href="consulta.jsp">Consulta</a></li>
         </ol>
         
     </body>
