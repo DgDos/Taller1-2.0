@@ -7,7 +7,8 @@ import java.io.RandomAccessFile;
 
 /**
  *
- * @author Sary
+ * @author Sara Chamseddine, Brenda Mendez y Oscar Romero
+ * @since   16/08/2017
  */
 public class Escritura {
     
@@ -83,9 +84,9 @@ public class Escritura {
         }
     }  
 
-    /** Busca en el archivo el nombre de un esquema.
+    /** Busca en el archivo el nombre de un esquema o tabla.
      * 
-     * @param ns nombre del esquema.
+     * @param ns nombre del esquema o tabla.
      * @param archivo dirección del archivo.
      * @return -1 si no lo encuentra, sino devuelve el id.
      * @throws FileNotFoundException 
@@ -126,7 +127,7 @@ public class Escritura {
         return -1;
     }
     
-    /**
+    /**Escribe el archivo de las tablas.
      * 
      * @param fk foreign key. 
      * @param nombre nombre del esquema.
@@ -170,7 +171,12 @@ public class Escritura {
          ex.printStackTrace();
         }
     }
-
+    /**Escribe el archivo de las columnas.
+     * 
+     * @param fk foreign key. 
+     * @param atr nombre del esquema.
+     * @param tipoAtr
+     */
     public void escrituraColumnas(int fk, String atr, String tipoAtr) {
         try {
          if(atr.length()>=20 || atr.length()>=20 || fk==-1){
@@ -212,7 +218,11 @@ public class Escritura {
          ex.printStackTrace();
         }
     }
-    
+    /**Imprime los datos dado un id de esquema
+     * 
+     * @param idEsquema= id del esquema del cual se imprimiran los datos
+     * @return un String con los valores de las tablas y columnas correspodintes a ese id
+     */
     public String imprimirDatos(int idEsquema){
         try{
             String palabra="";
