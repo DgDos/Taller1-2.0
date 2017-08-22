@@ -16,6 +16,14 @@
         <servlet-name>ConsultaSer</servlet-name>
         <servlet-class>controlador.ConsultaSer</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ModificarEsquemaSer</servlet-name>
+        <servlet-class>controlador.ModificarEsquemaSer</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EliminarEsquemaSer</servlet-name>
+        <servlet-class>controlador.EliminarEsquemaSer</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SchemaSer</servlet-name>
         <url-pattern>/SchemaSer</url-pattern>
@@ -31,6 +39,14 @@
     <servlet-mapping>
         <servlet-name>ConsultaSer</servlet-name>
         <url-pattern>/ConsultaSer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModificarEsquemaSer</servlet-name>
+        <url-pattern>/ModificarEsquemaSer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EliminarEsquemaSer</servlet-name>
+        <url-pattern>/EliminarEsquemaSer</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

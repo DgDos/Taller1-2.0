@@ -12,7 +12,13 @@
         <title>Esquemas</title>
     </head>
         <h1> Creador de Esquemas </h1>
-        
+        <%
+        String respuesta = (String) request.getAttribute("palabra");
+        if (respuesta != null && respuesta.length() > 0) {
+        %>
+        <H6><%=respuesta%> </h6>
+        <%}%>
+    
         <form action="SchemaSer" method="POST">
             Nombre del esquema: <input type="text" name="nombreEsquema">
             <br> <br>

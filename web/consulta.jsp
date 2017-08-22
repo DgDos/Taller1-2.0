@@ -10,15 +10,17 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Consulta</title>
+        <title>Consulta por Esquema</title>
     </head>
-    <h1> Consulta </h1>
+    <h1> Consulta por Esquema</h1>
     <%
         String respuesta = (String) request.getAttribute("palabra");
         if (respuesta != null && respuesta.length() > 0) {
     %>
     <H6><%=respuesta%> </h6>
-        <%}%>
+        <%}else{
+    %><h5>Si no sabe nombre de esquema por favor dejelo vacio para mostrar los esquemas disponibles de lo contrario ingrese el nombre</h5><% 
+        }%>
     
     <form action="ConsultaSer" method="POST">
         Nombre de esquema a consultar: <input type="text" name="nombreEsquema">

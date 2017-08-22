@@ -6,6 +6,7 @@
 package controlador;
 
 import java.io.IOException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -31,8 +32,10 @@ public class SchemaSer extends HttpServlet {
             throws ServletException, IOException {
         String s= request.getParameter("nombreEsquema");
         Escritura es=new Escritura();
-        es.escrituraSchema(s);
-        response.sendRedirect("/Taller1/index.jsp");
+        String palabra=es.escrituraSchema(s);
+        RequestDispatcher rd = getServletContext().getRequestDispatcher("/esquemas.jsp");
+        request.setAttribute("palabra", palabra);
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

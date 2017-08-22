@@ -40,48 +40,92 @@ public class Escritura {
      * @param nombre nombre del esquema.
      */
     
-    public void escrituraSchema(String nombre){
+    public String escrituraSchema(String nombre){
         try {
             // Si el nombre del esquema es mayor a 20 no retorna nada.
-         if(nombre.length()>=20){
-             System.out.println("Nombre muy largo solo 19 caracteres maximo");
-             return ;
-         }
-         // crea el archivo de esquemas.
-         RandomAccessFile raf = new RandomAccessFile("esquemas.txt", "rw");  
-         // si el archivo está vacío
-          File file = new File("esquemas.txt");
+            if(nombre.length()>=20){
+                return"<h5>Nombre muy largo solo 19 caracteres maximo</h5>" ;
+            }
+            // crea el archivo de esquemas.
+            RandomAccessFile raf = new RandomAccessFile("esquemas.txt", "rw");  
+            // si el archivo está vacío
+            File file = new File("esquemas.txt");
             System.out.println(file.getAbsolutePath());
-         if(raf.length()==0){
-             raf.writeInt(1); // Cantidad de elementos.
-             raf.writeInt(108); // Byte en donde comienza la tercera parte del archivo (datos).
-             raf.writeInt(1); // Clave.
-             raf.writeInt(108); // Posición.
-             raf.seek(108); // Busca el byte 108.
-             raf.writeInt(1); // Escribe el dato.
-             destruirP(108+4, nombre, "esquemas.txt"); // Invoca al método y guarda el nombre del esquema.
-         }else{
-             //No vacío y no sobrepasa longitud.
-             raf.seek(0); // Byte cero = cantidad de elementos que hay en el documento.
-             int cantidadDatos=raf.readInt(); 
-             int posDatos=raf.readInt(); 
-             raf.seek(posDatos+44*(cantidadDatos-1)); // Se posiciona en la clave anterior.
-             int id=raf.readInt()+1; // Lee id anterior.
-             raf.seek(posDatos+44*cantidadDatos); // Se posiciona en la clave actual.
-             raf.writeInt(id);
-             int pos=(int) raf.getFilePointer(); // Obtiene la posición.
-             destruirP(pos, nombre, "esquemas.txt"); // añade nombre del esquema.
-             raf.seek(8+8*cantidadDatos); // Agrega la clave y su posición en la sección de claves del archivo.
-//             int posLlave=(int) raf.getFilePointer();
-             raf.writeInt(id); 
-             raf.writeInt(pos);
-             //armarArbol(posLlave, "esquemas.txt");
-             raf.seek(0);
-             raf.writeInt(cantidadDatos+1); // Aumenta cantidad de datos.    
+            if(raf.length()==0){
+                raf.writeInt(1); // Cantidad de elementos.
+                raf.writeInt(168); // Byte en donde comienza la tercera parte del archivo (datos).
+                raf.writeInt(1); // Clave.
+                raf.writeInt(168); // Posición.
+                raf.writeInt(-1);
+                raf.writeInt(-1);
+                raf.seek(168); // Busca el byte 108.
+                raf.writeInt(1); // Escribe el dato.
+                destruirP(168+4, nombre, "esquemas.txt"); // Invoca al método y guarda el nombre del esquema.
+            }else{
+                //No vacío y no sobrepasa longitud.
+                raf.seek(0); // Byte cero = cantidad de elementos que hay en el documento.
+                int cantidadDatos=raf.readInt(); 
+                int posDatos=raf.readInt(); 
+                int ubicacion=8+16*cantidadDatos;
+                int id=0,pos=0,posLlave=0;
+                if(ubicacion<168-16){
+                    raf.seek(posDatos+44*(cantidadDatos-1)); // Se posiciona en la clave anterior.
+                    id=raf.readInt()+1; // Lee id anterior.
+                    raf.seek(posDatos+44*cantidadDatos); // Se posiciona en la clave actual.
+                    raf.writeInt(id);
+                    pos=(int) raf.getFilePointer(); // Obtiene la posición.
+                    destruirP(pos, nombre, "esquemas.txt"); // añade nombre del esquema.
+                    raf.seek(ubicacion); // Agrega la clave y su posición en la sección de claves del archivo.
+                    posLlave=(int) raf.getFilePointer();  
+                }else{
+                    raf.seek(8);
+                    while(raf.getFilePointer()<168){
+                        if(raf.readInt()==0){
+                            posLlave=(int)raf.getFilePointer()-4;
+                            break;
+                        }else{
+                            raf.skipBytes(12);
+                        }
+                    }
+                    if(raf.getFilePointer()==168){
+                        return "<h5>No hay espacio disponible para este nuevo dato.</h5>";
+                    }else{
+                        raf.seek(posDatos+44*(cantidadDatos-1)); // Se posiciona en la clave anterior.
+                        id=raf.readInt()+1; // Lee id anterior.
+                        raf.seek(posDatos+44*cantidadDatos); // Se posiciona en la clave actual.
+                        raf.writeInt(id);
+                        pos=(int) raf.getFilePointer(); // Obtiene la posición.
+                        destruirP(pos, nombre, "esquemas.txt"); // añade nombre del esquema.
+                        raf.seek(posLlave);
+                    }
+                }
+                raf.writeInt(id); 
+                raf.writeInt(pos);
+                raf.writeInt(-1);
+                raf.writeInt(-1);
+                raf.seek(0);
+                raf.writeInt(cantidadDatos+1); // Aumenta cantidad de datos.
+                raf.seek(8);
+                while(true){
+                    if(raf.readInt()<id){
+                        raf.skipBytes(8);
+                    }else{
+                        raf.skipBytes(4);
+                    }
+                    if(raf.readInt()==-1){
+                        raf.seek(raf.getFilePointer()-4);
+                        raf.writeInt(posLlave);
+                        break;
+                    }else{
+                        raf.seek(raf.getFilePointer()-4);
+                        raf.seek(raf.readInt());
+                    }
+                }
             }
         } catch (IOException ex) {
          ex.printStackTrace();
         }
+        return "<h5>Dato guardado ingrese un nuevo dato o regrese al inicio</h5>";
     }  
 
     /** Busca en el archivo el nombre de un esquema o tabla.
@@ -291,6 +335,37 @@ public class Escritura {
             return "";
         }
         
+    }
+
+    public String conseguirEsquemas(String archivo) {
+        String palabra="<h5>";
+        try{
+            RandomAccessFile esq = new RandomAccessFile(archivo, "rw");
+            int cantidadDatos=esq.readInt();
+            int posDatos= esq.readInt();
+            esq.seek(posDatos);
+            for(int i=0;i<cantidadDatos;i++){
+                palabra+=""+esq.readInt()+" ";
+                int puntero=(int)esq.getFilePointer();
+                while(true){
+                    char a=esq.readChar();
+                    if(a!='.'){
+                        palabra+=a;
+                    }else{
+                        break;
+                    }
+                }
+                esq.seek(puntero+40);
+                palabra+="<br>";
+            }
+            palabra+="</h5>";
+            return palabra;
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return "";
+        }
+        
+       
     }
 
     
